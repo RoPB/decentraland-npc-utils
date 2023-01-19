@@ -897,6 +897,7 @@
             }
             // Global button events
             if (!this.ClickAction) {
+                log("ENTRA A AGREGAR LOS CLICK ACTIONS");
                 this.ClickAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, function (e) {
                     log("ENTRA AL ClickAction BUTTON_DOWN");
                     if (!_this.isDialogOpen || +Date.now() - _this.UIOpenTime < 100)
@@ -934,6 +935,7 @@
                         _this.skipDialogs();
                     }
                 });
+                log("TERMINA DE AGREGAR LOS CLICK ACTIONS");
             }
             this.layoutDialogWindow(this.activeTextId);
             this.isDialogOpen = true;

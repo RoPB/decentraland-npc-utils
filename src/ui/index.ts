@@ -432,16 +432,21 @@ export class DialogWindow {
 
     // Global button events
     if (!this.ClickAction) {
-      this.ClickAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, e => {
-        log("ENTRA AL ClickAction BUTTON_DOWN")
-        if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+      log("ENTRA A AGREGAR LOS CLICK ACTIONS")
+      this.ClickAction = Input.instance.subscribe(
+        'BUTTON_DOWN', 
+        ActionButton.POINTER, 
+        false, 
+        e => {
+          log("ENTRA AL ClickAction BUTTON_DOWN")
+          if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
-        if (!DialogTypeInSystem._instance!.done) {
-          DialogTypeInSystem._instance!.rush()
-          return
-        } else if (!this.isQuestionPanel && !this.isFixedScreen) {
-          this.confirmText(ConfirmMode.Next)
-        }
+          if (!DialogTypeInSystem._instance!.done) {
+            DialogTypeInSystem._instance!.rush()
+            return
+          } else if (!this.isQuestionPanel && !this.isFixedScreen) {
+            this.confirmText(ConfirmMode.Next)
+          }
       })
 
       this.EButtonAction = Input.instance.subscribe(
@@ -478,6 +483,7 @@ export class DialogWindow {
           }
         }
       )
+      log("TERMINA DE AGREGAR LOS CLICK ACTIONS")
     }
 
     this.layoutDialogWindow(this.activeTextId)
