@@ -223,7 +223,7 @@ export class DialogWindow {
         this.confirmText(ConfirmMode.Confirm)
       },
       useDarkTheme? true: false,
-      ButtonStyles.E
+      ButtonStyles.RED
     )
     this.button1.hide()
 
@@ -237,7 +237,7 @@ export class DialogWindow {
         this.confirmText(ConfirmMode.Cancel)
       },
       useDarkTheme? true: false,
-      ButtonStyles.F
+      ButtonStyles.DARK
     )
     this.button2.hide()
 
@@ -449,41 +449,44 @@ export class DialogWindow {
           }
       })
 
-      this.EButtonAction = Input.instance.subscribe(
-        'BUTTON_DOWN',
-        ActionButton.PRIMARY,
-        false,
-        e => {
-          log("ENTRA AL ActionButton.PRIMARY BUTTON_DOWN")
-		      if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+      // COMENTE PORQUE CUANDO TENES EL PUNTERO
+      // ARRIBA DEL UITEXTINPUT NO TE AGARRA LOS EVENTOS Y QUEDA RARO
+      // INCLUSO AL BUTTON1 y BUTTON2 LE CAMBIE EL ESTILO
+      // this.EButtonAction = Input.instance.subscribe(
+      //   'BUTTON_DOWN',
+      //   ActionButton.PRIMARY,
+      //   false,
+      //   e => {
 
-          if (this.isQuestionPanel) {
-            log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Confirm");
-            this.confirmText(ConfirmMode.Confirm)
-          } else if (!this.isQuestionPanel && !this.isFixedScreen) {
-            log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Next")
-			      this.confirmText(ConfirmMode.Next)
-		      }
-        }
-      )
+		  //     if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+
+      //     if (this.isQuestionPanel) {
+
+      //       this.confirmText(ConfirmMode.Confirm)
+      //     } else if (!this.isQuestionPanel && !this.isFixedScreen) {
+
+			//       this.confirmText(ConfirmMode.Next)
+		  //     }
+      //   }
+      // )
       
-      this.FButtonAction = Input.instance.subscribe(
-        'BUTTON_DOWN',
-        ActionButton.SECONDARY,
-        false,
-        e => {
-          log("ENTRA AL ActionButton.SECONDARY BUTTON_DOWN")
-		      if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+      // this.FButtonAction = Input.instance.subscribe(
+      //   'BUTTON_DOWN',
+      //   ActionButton.SECONDARY,
+      //   false,
+      //   e => {
 
-          if (this.isQuestionPanel) {
-            log("ENTRA AL ActionButton.SECONDARY ConfirmMode.Cancel")
-            this.confirmText(ConfirmMode.Cancel)
-          } else if (currentText.skipable && !this.isFixedScreen) {
-            this.skipDialogs()
-          }
-        }
-      )
-      log("TERMINA DE AGREGAR LOS CLICK ACTIONS")
+		  //     if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+
+      //     if (this.isQuestionPanel) {
+
+      //       this.confirmText(ConfirmMode.Cancel)
+      //     } else if (currentText.skipable && !this.isFixedScreen) {
+      //       this.skipDialogs()
+      //     }
+      //   }
+      // )
+
     }
 
     this.layoutDialogWindow(this.activeTextId)

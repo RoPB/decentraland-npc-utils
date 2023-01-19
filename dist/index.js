@@ -755,11 +755,11 @@
             }
             this.button1 = new CustomDialogButton(this.container, this.uiTheme, 'yes', button1XPos, button1YPos, function () {
                 _this.confirmText(ConfirmMode.Confirm);
-            }, useDarkTheme ? true : false, exports.ButtonStyles.E);
+            }, useDarkTheme ? true : false, exports.ButtonStyles.RED);
             this.button1.hide();
             this.button2 = new CustomDialogButton(this.container, this.uiTheme, 'no', button2XPos, button2YPos, function () {
                 _this.confirmText(ConfirmMode.Cancel);
-            }, useDarkTheme ? true : false, exports.ButtonStyles.F);
+            }, useDarkTheme ? true : false, exports.ButtonStyles.DARK);
             this.button2.hide();
             this.button3 = new CustomDialogButton(this.container, this.uiTheme, 'maybe', button3XPos, button3YPos, function () {
                 _this.confirmText(ConfirmMode.Button3);
@@ -910,32 +910,35 @@
                         _this.confirmText(ConfirmMode.Next);
                     }
                 });
-                this.EButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, function (e) {
-                    log("ENTRA AL ActionButton.PRIMARY BUTTON_DOWN");
-                    if (!_this.isDialogOpen || +Date.now() - _this.UIOpenTime < 100)
-                        return;
-                    if (_this.isQuestionPanel) {
-                        log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Confirm");
-                        _this.confirmText(ConfirmMode.Confirm);
-                    }
-                    else if (!_this.isQuestionPanel && !_this.isFixedScreen) {
-                        log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Next");
-                        _this.confirmText(ConfirmMode.Next);
-                    }
-                });
-                this.FButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.SECONDARY, false, function (e) {
-                    log("ENTRA AL ActionButton.SECONDARY BUTTON_DOWN");
-                    if (!_this.isDialogOpen || +Date.now() - _this.UIOpenTime < 100)
-                        return;
-                    if (_this.isQuestionPanel) {
-                        log("ENTRA AL ActionButton.SECONDARY ConfirmMode.Cancel");
-                        _this.confirmText(ConfirmMode.Cancel);
-                    }
-                    else if (currentText.skipable && !_this.isFixedScreen) {
-                        _this.skipDialogs();
-                    }
-                });
-                log("TERMINA DE AGREGAR LOS CLICK ACTIONS");
+                // COMENTE PORQUE CUANDO TENES EL PUNTERO
+                // ARRIBA DEL UITEXTINPUT NO TE AGARRA LOS EVENTOS Y QUEDA RARO
+                // INCLUSO AL BUTTON1 y BUTTON2 LE CAMBIE EL ESTILO
+                // this.EButtonAction = Input.instance.subscribe(
+                //   'BUTTON_DOWN',
+                //   ActionButton.PRIMARY,
+                //   false,
+                //   e => {
+                //     if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+                //     if (this.isQuestionPanel) {
+                //       this.confirmText(ConfirmMode.Confirm)
+                //     } else if (!this.isQuestionPanel && !this.isFixedScreen) {
+                //       this.confirmText(ConfirmMode.Next)
+                //     }
+                //   }
+                // )
+                // this.FButtonAction = Input.instance.subscribe(
+                //   'BUTTON_DOWN',
+                //   ActionButton.SECONDARY,
+                //   false,
+                //   e => {
+                //     if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+                //     if (this.isQuestionPanel) {
+                //       this.confirmText(ConfirmMode.Cancel)
+                //     } else if (currentText.skipable && !this.isFixedScreen) {
+                //       this.skipDialogs()
+                //     }
+                //   }
+                // )
             }
             this.layoutDialogWindow(this.activeTextId);
             this.isDialogOpen = true;
