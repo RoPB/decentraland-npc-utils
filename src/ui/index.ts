@@ -190,7 +190,7 @@ export class DialogWindow {
     this.fillInBox.visible=false;
     this.fillInBox.textWrapping = true
     this.fillInBox.width = 460 * UIscaleMultiplier
-    this.fillInBox.height = 40 * UIscaleMultiplier
+    this.fillInBox.height = 80 * UIscaleMultiplier
     this.fillInBox.hTextAlign = 'center'
     this.fillInBox.vTextAlign = 'center'
     this.fillInBox.font = SFHeavyFont
@@ -199,7 +199,6 @@ export class DialogWindow {
     this.fillInBox.vTextAlign = 'center'
     this.fillInBox.positionY = textYPos
     this.fillInBox.color = useDarkTheme ? Color4.White() : Color4.Black()
-    this.fillInBox.placeholder = "?"
     this.fillInBox.isPointerBlocker = true
 
     this.soundEnt = new Entity()
@@ -436,8 +435,6 @@ export class DialogWindow {
       this.ClickAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, e => {
         if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
-        if (currentText.isQuestion && currentText.isEntryQuestion) return
-
         if (!DialogTypeInSystem._instance!.done) {
           DialogTypeInSystem._instance!.rush()
           return
@@ -468,9 +465,7 @@ export class DialogWindow {
         e => {
 		  if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
-          if (
-            this.isQuestionPanel
-          ) {
+          if (this.isQuestionPanel) {
             this.confirmText(ConfirmMode.Cancel)
           } else if (
             currentText.skipable && !this.isFixedScreen
@@ -504,7 +499,7 @@ export class DialogWindow {
         this.closeDialogWindow()
         return
       }
-      
+
       this.activeTextId++
     }
     else if (mode == ConfirmMode.Confirm) {
