@@ -72,6 +72,7 @@ export class DialogWindow {
   public defaultPortraitTexture: Texture
   public image: UIImage
   public text: UIText
+  public fillInBox: UIInputText
   public button1: CustomDialogButton
   public button2: CustomDialogButton
   public button3: CustomDialogButton
@@ -182,6 +183,22 @@ export class DialogWindow {
     //this.text.fontWeight = 'normal'
     this.text.color = useDarkTheme ? Color4.White() : Color4.Black()
     this.text.isPointerBlocker = false
+
+    //  Input Text
+    this.fillInBox = new UIInputText(this.container)
+    this.fillInBox.textWrapping = true
+    this.fillInBox.width = 460 * UIscaleMultiplier
+    this.fillInBox.height = 40 * UIscaleMultiplier
+    this.fillInBox.hTextAlign = 'center'
+    this.fillInBox.vTextAlign = 'center'
+    this.fillInBox.font = SFHeavyFont
+    this.fillInBox.fontSize = textSize
+    this.fillInBox.hTextAlign = 'left'
+    this.fillInBox.vTextAlign = 'center'
+    this.fillInBox.positionY = textYPos
+    this.fillInBox.color = useDarkTheme ? Color4.White() : Color4.Black()
+    this.fillInBox.placeholder = "?"
+    this.fillInBox.isPointerBlocker = false
 
     this.soundEnt = new Entity()
     this.soundEnt.addComponent(new Transform())
@@ -386,20 +403,32 @@ export class DialogWindow {
       this.image.visible = false
     }
 
-    // Set text
-    //this.text.value = currentText.text
-    this.text.fontSize = currentText.fontSize ? currentText.fontSize * UIscaleMultiplier : textSize
-    this.text.positionY = currentText.offsetY ? currentText.offsetY * UIscaleMultiplier + textYPos : textYPos
-    this.text.positionX = currentText.offsetX ? currentText.offsetX * UIscaleMultiplier : 0
-    this.text.visible = true
-    this.container.visible = true
 
-    DialogTypeInSystem._instance!.newText(
-      this,
-      currentText.text,
-      this.activeTextId,
-      currentText.typeSpeed ? currentText.typeSpeed : undefined
-    )
+    if(currentText.isEntryQuestion){
+      this.fillInBox.fontSize = currentText.fontSize ? currentText.fontSize * UIscaleMultiplier : textSize
+      this.fillInBox.positionY = currentText.offsetY ? currentText.offsetY * UIscaleMultiplier + textYPos : textYPos
+      this.fillInBox.positionX = currentText.offsetX ? currentText.offsetX * UIscaleMultiplier : 0
+      this.fillInBox.visible = true
+      this.container.visible = true
+      
+    }
+    else{
+      // Set text
+      //this.text.value = currentText.text
+      this.text.fontSize = currentText.fontSize ? currentText.fontSize * UIscaleMultiplier : textSize
+      this.text.positionY = currentText.offsetY ? currentText.offsetY * UIscaleMultiplier + textYPos : textYPos
+      this.text.positionX = currentText.offsetX ? currentText.offsetX * UIscaleMultiplier : 0
+      this.text.visible = true
+      this.container.visible = true
+
+      DialogTypeInSystem._instance!.newText(
+        this,
+        currentText.text,
+        this.activeTextId,
+        currentText.typeSpeed ? currentText.typeSpeed : undefined
+      )
+    }
+    
 
     // Global button events
     if (!this.ClickAction) {
@@ -461,7 +490,8 @@ export class DialogWindow {
     if (mode == ConfirmMode.Next) {
       if (!currentText.isQuestion) {
         if (currentText.triggeredByNext) {
-          currentText.triggeredByNext()
+          const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
+          currentText.triggeredByNext(fillInBoxTextValue)
         }
         if (currentText.isEndOfDialog) {
           this.closeDialogWindow()
@@ -741,6 +771,8 @@ export class DialogWindow {
       this.portrait.visible = false
       this.text.value = ''
       this.text.visible = false
+      this.fillInBox.value = ''
+      this.fillInBox.visible = false;
       this.button1.hide()
       this.button2.hide()
       this.button3.hide()

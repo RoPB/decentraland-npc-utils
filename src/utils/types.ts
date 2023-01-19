@@ -26,10 +26,11 @@ export type Dialog = {
   offsetY?: number
   typeSpeed?: number
   isEndOfDialog?: boolean
-  triggeredByNext?: () => void
+  triggeredByNext?: (string?) => void
   portrait?: ImageData
   image?: ImageData
   isQuestion?: boolean
+  isEntryQuestion?:boolean
   isFixedScreen?: boolean
   buttons?: ButtonData[]
   audio?: string
