@@ -448,11 +448,14 @@ export class DialogWindow {
         ActionButton.PRIMARY,
         false,
         e => {
-		  if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+          log("ENTRA AL ActionButton.PRIMARY BUTTON_DOWN")
+		      if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
           if (this.isQuestionPanel) {
+            log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Confirm");
             this.confirmText(ConfirmMode.Confirm)
           } else if (!this.isQuestionPanel && !this.isFixedScreen) {
+            log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Next")
 			      this.confirmText(ConfirmMode.Next)
 		      }
         }
@@ -463,13 +466,13 @@ export class DialogWindow {
         ActionButton.SECONDARY,
         false,
         e => {
-		  if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+          log("ENTRA AL ActionButton.SECONDARY BUTTON_DOWN")
+		      if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
           if (this.isQuestionPanel) {
+            log("ENTRA AL ActionButton.SECONDARY ConfirmMode.Cancel")
             this.confirmText(ConfirmMode.Cancel)
-          } else if (
-            currentText.skipable && !this.isFixedScreen
-          ) {
+          } else if (currentText.skipable && !this.isFixedScreen) {
             this.skipDialogs()
           }
         }

@@ -909,19 +909,24 @@
                     }
                 });
                 this.EButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, false, function (e) {
+                    log("ENTRA AL ActionButton.PRIMARY BUTTON_DOWN");
                     if (!_this.isDialogOpen || +Date.now() - _this.UIOpenTime < 100)
                         return;
                     if (_this.isQuestionPanel) {
+                        log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Confirm");
                         _this.confirmText(ConfirmMode.Confirm);
                     }
                     else if (!_this.isQuestionPanel && !_this.isFixedScreen) {
+                        log("ENTRA AL ActionButton.PRIMARY ConfirmMode.Next");
                         _this.confirmText(ConfirmMode.Next);
                     }
                 });
                 this.FButtonAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.SECONDARY, false, function (e) {
+                    log("ENTRA AL ActionButton.SECONDARY BUTTON_DOWN");
                     if (!_this.isDialogOpen || +Date.now() - _this.UIOpenTime < 100)
                         return;
                     if (_this.isQuestionPanel) {
+                        log("ENTRA AL ActionButton.SECONDARY ConfirmMode.Cancel");
                         _this.confirmText(ConfirmMode.Cancel);
                     }
                     else if (currentText.skipable && !_this.isFixedScreen) {
