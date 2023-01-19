@@ -913,6 +913,7 @@
                 // COMENTE PORQUE CUANDO TENES EL PUNTERO
                 // ARRIBA DEL UITEXTINPUT NO TE AGARRA LOS EVENTOS Y QUEDA RARO
                 // INCLUSO AL BUTTON1 y BUTTON2 LE CAMBIE EL ESTILO
+                // NI SIQUIERA ESTAN LOS UNSUBSCRIBES DE ESTO
                 // this.EButtonAction = Input.instance.subscribe(
                 //   'BUTTON_DOWN',
                 //   ActionButton.PRIMARY,
@@ -1232,6 +1233,9 @@
                 this.skipButton.hide();
                 this.leftClickIcon.visible = false;
                 this.container.visible = false;
+                Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.POINTER, this.ClickAction);
+                // Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.PRIMARY, this.EButtonAction);
+                // Input.instance.unsubscribe('BUTTON_DOWN', ActionButton.SECONDARY, this.FButtonAction);
             }
         };
         DialogWindow.prototype.skipDialogs = function () {
