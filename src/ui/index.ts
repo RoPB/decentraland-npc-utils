@@ -504,26 +504,38 @@ export class DialogWindow {
       }
     }
 
+    let closeDialogWindow=false;
+
     if (mode == ConfirmMode.Confirm) {
       if (currentText.buttons && currentText.buttons.length >= 1) {
-        if (typeof currentText.buttons[0].goToDialog === 'number') {
-          this.activeTextId = currentText.buttons[0].goToDialog
-        } else {
-          this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[0].goToDialog)
+        if(currentText.buttons[0].goToDialog)
+        {
+          if (typeof currentText.buttons[0].goToDialog === 'number') {
+            this.activeTextId = currentText.buttons[0].goToDialog
+          } else {
+            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[0].goToDialog)
+          }
         }
+        else{
+          closeDialogWindow=true;
+        } 
         if (currentText.buttons[0].triggeredActions) {
           const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
           currentText.buttons[0].triggeredActions(fillInBoxTextValue)
         }
       }
     }
-
-    if (mode == ConfirmMode.Cancel) {
+    else if (mode == ConfirmMode.Cancel) {
       if (currentText.buttons && currentText.buttons.length >= 2) {
-        if (typeof currentText.buttons[1].goToDialog === 'number') {
-          this.activeTextId = currentText.buttons[1].goToDialog
-        } else {
-          this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[1].goToDialog)
+        if(currentText.buttons[1].goToDialog){
+          if (typeof currentText.buttons[1].goToDialog === 'number') {
+            this.activeTextId = currentText.buttons[1].goToDialog
+          } else {
+            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[1].goToDialog)
+          }
+        }
+        else{
+          closeDialogWindow=true;
         }
         if (currentText.buttons[1].triggeredActions) {
           const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
@@ -531,13 +543,17 @@ export class DialogWindow {
         }
       }
     }
-
-    if (mode == ConfirmMode.Button3) {
+    else if (mode == ConfirmMode.Button3) {
       if (currentText.buttons && currentText.buttons.length >= 3) {
-        if (typeof currentText.buttons[2].goToDialog === 'number') {
-          this.activeTextId = currentText.buttons[2].goToDialog
-        } else {
-          this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[2].goToDialog)
+        if(currentText.buttons[2].goToDialog){
+          if (typeof currentText.buttons[2].goToDialog === 'number') {
+            this.activeTextId = currentText.buttons[2].goToDialog
+          } else {
+            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[2].goToDialog)
+          }
+        }
+        else{
+          closeDialogWindow=true;
         }
         if (currentText.buttons[2].triggeredActions) {
           const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
@@ -545,13 +561,17 @@ export class DialogWindow {
         }
       }
     }
-
-    if (mode == ConfirmMode.Button4) {
+    else if (mode == ConfirmMode.Button4) {
       if (currentText.buttons && currentText.buttons.length >= 4) {
-        if (typeof currentText.buttons[3].goToDialog === 'number') {
-          this.activeTextId = currentText.buttons[3].goToDialog
-        } else {
-          this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[3].goToDialog)
+        if(currentText.buttons[3].goToDialog){
+          if (typeof currentText.buttons[3].goToDialog === 'number') {
+            this.activeTextId = currentText.buttons[3].goToDialog
+          } else {
+            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[3].goToDialog)
+          }
+        }
+        else{
+          closeDialogWindow=true;
         }
         if (currentText.buttons[3].triggeredActions) {
           const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
@@ -559,6 +579,12 @@ export class DialogWindow {
         }
       }
     }
+
+    if(closeDialogWindow){
+      this.closeDialogWindow()
+      return
+    }
+    
     // Update active text with new active text
     currentText = this.NPCScript[this.activeTextId]
 

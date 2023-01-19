@@ -952,13 +952,19 @@
                     this.activeTextId++;
                 }
             }
+            var closeDialogWindow = false;
             if (mode == ConfirmMode.Confirm) {
                 if (currentText.buttons && currentText.buttons.length >= 1) {
-                    if (typeof currentText.buttons[0].goToDialog === 'number') {
-                        this.activeTextId = currentText.buttons[0].goToDialog;
+                    if (currentText.buttons[0].goToDialog) {
+                        if (typeof currentText.buttons[0].goToDialog === 'number') {
+                            this.activeTextId = currentText.buttons[0].goToDialog;
+                        }
+                        else {
+                            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[0].goToDialog);
+                        }
                     }
                     else {
-                        this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[0].goToDialog);
+                        closeDialogWindow = true;
                     }
                     if (currentText.buttons[0].triggeredActions) {
                         var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
@@ -966,13 +972,18 @@
                     }
                 }
             }
-            if (mode == ConfirmMode.Cancel) {
+            else if (mode == ConfirmMode.Cancel) {
                 if (currentText.buttons && currentText.buttons.length >= 2) {
-                    if (typeof currentText.buttons[1].goToDialog === 'number') {
-                        this.activeTextId = currentText.buttons[1].goToDialog;
+                    if (currentText.buttons[1].goToDialog) {
+                        if (typeof currentText.buttons[1].goToDialog === 'number') {
+                            this.activeTextId = currentText.buttons[1].goToDialog;
+                        }
+                        else {
+                            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[1].goToDialog);
+                        }
                     }
                     else {
-                        this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[1].goToDialog);
+                        closeDialogWindow = true;
                     }
                     if (currentText.buttons[1].triggeredActions) {
                         var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
@@ -980,13 +991,18 @@
                     }
                 }
             }
-            if (mode == ConfirmMode.Button3) {
+            else if (mode == ConfirmMode.Button3) {
                 if (currentText.buttons && currentText.buttons.length >= 3) {
-                    if (typeof currentText.buttons[2].goToDialog === 'number') {
-                        this.activeTextId = currentText.buttons[2].goToDialog;
+                    if (currentText.buttons[2].goToDialog) {
+                        if (typeof currentText.buttons[2].goToDialog === 'number') {
+                            this.activeTextId = currentText.buttons[2].goToDialog;
+                        }
+                        else {
+                            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[2].goToDialog);
+                        }
                     }
                     else {
-                        this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[2].goToDialog);
+                        closeDialogWindow = true;
                     }
                     if (currentText.buttons[2].triggeredActions) {
                         var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
@@ -994,19 +1010,28 @@
                     }
                 }
             }
-            if (mode == ConfirmMode.Button4) {
+            else if (mode == ConfirmMode.Button4) {
                 if (currentText.buttons && currentText.buttons.length >= 4) {
-                    if (typeof currentText.buttons[3].goToDialog === 'number') {
-                        this.activeTextId = currentText.buttons[3].goToDialog;
+                    if (currentText.buttons[3].goToDialog) {
+                        if (typeof currentText.buttons[3].goToDialog === 'number') {
+                            this.activeTextId = currentText.buttons[3].goToDialog;
+                        }
+                        else {
+                            this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[3].goToDialog);
+                        }
                     }
                     else {
-                        this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[3].goToDialog);
+                        closeDialogWindow = true;
                     }
                     if (currentText.buttons[3].triggeredActions) {
                         var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
                         currentText.buttons[3].triggeredActions(fillInBoxTextValue);
                     }
                 }
+            }
+            if (closeDialogWindow) {
+                this.closeDialogWindow();
+                return;
             }
             // Update active text with new active text
             currentText = this.NPCScript[this.activeTextId];

@@ -71,7 +71,7 @@ export declare type TriggerData = {
  *
  */
 export declare type ButtonData = {
-    goToDialog: number | string;
+    goToDialog?: number | string;
     label: string;
     triggeredActions?: (text?: string) => void;
     fontSize?: number;
