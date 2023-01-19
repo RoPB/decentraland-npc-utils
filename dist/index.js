@@ -939,21 +939,21 @@
         DialogWindow.prototype.confirmText = function (mode) {
             var currentText = this.NPCScript[this.activeTextId];
             this.UIOpenTime = +Date.now();
+            var closeDialogWindow = false;
             // Update active text
             if (mode == ConfirmMode.Next) {
-                if (!currentText.isQuestion) {
-                    if (currentText.triggeredByNext) {
-                        currentText.triggeredByNext();
-                    }
-                    if (currentText.isEndOfDialog) {
-                        this.closeDialogWindow();
-                        return;
-                    }
-                    this.activeTextId++;
+                if (currentText.isQuestion)
+                    return;
+                if (currentText.triggeredByNext) {
+                    currentText.triggeredByNext();
                 }
+                if (currentText.isEndOfDialog) {
+                    this.closeDialogWindow();
+                    return;
+                }
+                this.activeTextId++;
             }
-            var closeDialogWindow = false;
-            if (mode == ConfirmMode.Confirm) {
+            else if (mode == ConfirmMode.Confirm) {
                 if (currentText.buttons && currentText.buttons.length >= 1) {
                     if (currentText.buttons[0].goToDialog) {
                         if (typeof currentText.buttons[0].goToDialog === 'number') {

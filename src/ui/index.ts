@@ -489,24 +489,25 @@ export class DialogWindow {
   public confirmText(mode: ConfirmMode): void {
     let currentText = this.NPCScript[this.activeTextId]
 	  this.UIOpenTime = +Date.now()
+    let closeDialogWindow=false;
 
     // Update active text
     if (mode == ConfirmMode.Next) {
-      if (!currentText.isQuestion) {
-        if (currentText.triggeredByNext) {
-          currentText.triggeredByNext()
-        }
-        if (currentText.isEndOfDialog) {
-          this.closeDialogWindow()
-          return
-        }
-        this.activeTextId++
+
+      if(currentText.isQuestion)
+        return;
+
+      if (currentText.triggeredByNext) {
+        currentText.triggeredByNext()
       }
+      if (currentText.isEndOfDialog) {
+        this.closeDialogWindow()
+        return
+      }
+      
+      this.activeTextId++
     }
-
-    let closeDialogWindow=false;
-
-    if (mode == ConfirmMode.Confirm) {
+    else if (mode == ConfirmMode.Confirm) {
       if (currentText.buttons && currentText.buttons.length >= 1) {
         if(currentText.buttons[0].goToDialog)
         {
@@ -584,7 +585,7 @@ export class DialogWindow {
       this.closeDialogWindow()
       return
     }
-    
+
     // Update active text with new active text
     currentText = this.NPCScript[this.activeTextId]
 
