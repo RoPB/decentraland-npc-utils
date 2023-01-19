@@ -1008,7 +1008,13 @@
             }
             // Update active text with new active text
             currentText = this.NPCScript[this.activeTextId];
-            DialogTypeInSystem._instance.newText(this, currentText.text, this.activeTextId, currentText.typeSpeed ? currentText.typeSpeed : undefined);
+            if (currentText.isQuestion && currentText.isEntryQuestion) {
+                this.text.visible = false;
+                this.fillInBox.visible = true;
+            }
+            else {
+                DialogTypeInSystem._instance.newText(this, currentText.text, this.activeTextId, currentText.typeSpeed ? currentText.typeSpeed : undefined);
+            }
         };
         // Adds the buttons or mouse icon depending on the type of window
         DialogWindow.prototype.layoutDialogWindow = function (textId) {
