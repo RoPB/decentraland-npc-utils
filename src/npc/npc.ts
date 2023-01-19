@@ -328,7 +328,7 @@ export class NPC extends Entity {
       }
     }
 
-    newAnim.play(true)
+    newAnim.play()
     this.lastPlayedAnim = newAnim
   }
 
