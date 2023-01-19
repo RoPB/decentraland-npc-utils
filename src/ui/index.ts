@@ -491,8 +491,7 @@ export class DialogWindow {
     if (mode == ConfirmMode.Next) {
       if (!currentText.isQuestion) {
         if (currentText.triggeredByNext) {
-          const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
-          currentText.triggeredByNext(fillInBoxTextValue)
+          currentText.triggeredByNext()
         }
         if (currentText.isEndOfDialog) {
           this.closeDialogWindow()
@@ -510,7 +509,8 @@ export class DialogWindow {
           this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[0].goToDialog)
         }
         if (currentText.buttons[0].triggeredActions) {
-          currentText.buttons[0].triggeredActions()
+          const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
+          currentText.buttons[0].triggeredActions(fillInBoxTextValue)
         }
       }
     }
@@ -523,7 +523,8 @@ export class DialogWindow {
           this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[1].goToDialog)
         }
         if (currentText.buttons[1].triggeredActions) {
-          currentText.buttons[1].triggeredActions()
+          const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
+          currentText.buttons[1].triggeredActions(fillInBoxTextValue)
         }
       }
     }
@@ -536,7 +537,8 @@ export class DialogWindow {
           this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[2].goToDialog)
         }
         if (currentText.buttons[2].triggeredActions) {
-          currentText.buttons[2].triggeredActions()
+          const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
+          currentText.buttons[2].triggeredActions(fillInBoxTextValue)
         }
       }
     }
@@ -549,7 +551,8 @@ export class DialogWindow {
           this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[3].goToDialog)
         }
         if (currentText.buttons[3].triggeredActions) {
-          currentText.buttons[3].triggeredActions()
+          const fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined; 
+          currentText.buttons[3].triggeredActions(fillInBoxTextValue)
         }
       }
     }

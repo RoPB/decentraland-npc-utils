@@ -941,8 +941,7 @@
             if (mode == ConfirmMode.Next) {
                 if (!currentText.isQuestion) {
                     if (currentText.triggeredByNext) {
-                        var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
-                        currentText.triggeredByNext(fillInBoxTextValue);
+                        currentText.triggeredByNext();
                     }
                     if (currentText.isEndOfDialog) {
                         this.closeDialogWindow();
@@ -960,7 +959,8 @@
                         this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[0].goToDialog);
                     }
                     if (currentText.buttons[0].triggeredActions) {
-                        currentText.buttons[0].triggeredActions();
+                        var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
+                        currentText.buttons[0].triggeredActions(fillInBoxTextValue);
                     }
                 }
             }
@@ -973,7 +973,8 @@
                         this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[1].goToDialog);
                     }
                     if (currentText.buttons[1].triggeredActions) {
-                        currentText.buttons[1].triggeredActions();
+                        var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
+                        currentText.buttons[1].triggeredActions(fillInBoxTextValue);
                     }
                 }
             }
@@ -986,7 +987,8 @@
                         this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[2].goToDialog);
                     }
                     if (currentText.buttons[2].triggeredActions) {
-                        currentText.buttons[2].triggeredActions();
+                        var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
+                        currentText.buttons[2].triggeredActions(fillInBoxTextValue);
                     }
                 }
             }
@@ -999,7 +1001,8 @@
                         this.activeTextId = findDialogByName(this.NPCScript, currentText.buttons[3].goToDialog);
                     }
                     if (currentText.buttons[3].triggeredActions) {
-                        currentText.buttons[3].triggeredActions();
+                        var fillInBoxTextValue = currentText.isEntryQuestion ? this.fillInBox.value : undefined;
+                        currentText.buttons[3].triggeredActions(fillInBoxTextValue);
                     }
                 }
             }

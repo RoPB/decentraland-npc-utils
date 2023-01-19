@@ -74,7 +74,7 @@ export type TriggerData = {
 export type ButtonData = {
   goToDialog: number | string
   label: string
-  triggeredActions?: () => void
+  triggeredActions?: (text?:string) => void
   fontSize?: number
   offsetX?: number
   offsetY?: number
