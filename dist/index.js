@@ -905,7 +905,8 @@
                         DialogTypeInSystem._instance.rush();
                         return;
                     }
-                    else if (!_this.isQuestionPanel && !_this.isFixedScreen) {
+                    else if (!_this.isQuestionPanel && !_this.isFixedScreen
+                        && !(currentText.isQuestion && currentText.isEntryQuestion)) {
                         _this.confirmText(ConfirmMode.Next);
                     }
                 });

@@ -438,7 +438,8 @@ export class DialogWindow {
         if (!DialogTypeInSystem._instance!.done) {
           DialogTypeInSystem._instance!.rush()
           return
-        } else if (!this.isQuestionPanel && !this.isFixedScreen) {
+        } else if (!this.isQuestionPanel && !this.isFixedScreen 
+                        && !(currentText.isQuestion && currentText.isEntryQuestion)) {
           this.confirmText(ConfirmMode.Next)
         }
       })
