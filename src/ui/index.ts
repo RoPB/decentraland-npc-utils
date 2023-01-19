@@ -568,6 +568,8 @@ export class DialogWindow {
       this.layoutDialogWindow(this.activeTextId)
     }
     else{
+      this.fillInBox.visible = false;
+      this.text.visible = true;
       DialogTypeInSystem._instance!.newText(
         this,
         currentText.text,
