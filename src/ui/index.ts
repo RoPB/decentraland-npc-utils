@@ -200,7 +200,7 @@ export class DialogWindow {
     this.fillInBox.positionY = textYPos
     this.fillInBox.color = useDarkTheme ? Color4.White() : Color4.Black()
     this.fillInBox.placeholder = "?"
-    this.fillInBox.isPointerBlocker = false
+    this.fillInBox.isPointerBlocker = true
 
     this.soundEnt = new Entity()
     this.soundEnt.addComponent(new Transform())
@@ -560,8 +560,11 @@ export class DialogWindow {
     currentText = this.NPCScript[this.activeTextId]
 
     if(currentText.isQuestion && currentText.isEntryQuestion){
-      this.text.visible=false;
-      this.fillInBox.visible=true;
+      this.text.visible = false;
+      this.fillInBox.value = "";
+      this.fillInBox.visible = true;
+      // Buttons & action icons
+      this.layoutDialogWindow(this.activeTextId)
     }
     else{
       DialogTypeInSystem._instance!.newText(
