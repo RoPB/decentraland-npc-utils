@@ -435,14 +435,17 @@ export class DialogWindow {
     if (!this.ClickAction) {
       this.ClickAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, e => {
         if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
+
+        if (currentText.isQuestion && currentText.isEntryQuestion) return
+
         if (!DialogTypeInSystem._instance!.done) {
           DialogTypeInSystem._instance!.rush()
           return
-        } else if (!this.isQuestionPanel && !this.isFixedScreen 
-                        && !(currentText.isQuestion && currentText.isEntryQuestion)) {
+        } else if (!this.isQuestionPanel && !this.isFixedScreen) {
           this.confirmText(ConfirmMode.Next)
         }
       })
+
       this.EButtonAction = Input.instance.subscribe(
         'BUTTON_DOWN',
         ActionButton.PRIMARY,
@@ -450,15 +453,14 @@ export class DialogWindow {
         e => {
 		  if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
-          if (
-            this.isQuestionPanel
-          ) {
+          if (this.isQuestionPanel) {
             this.confirmText(ConfirmMode.Confirm)
           } else if (!this.isQuestionPanel && !this.isFixedScreen) {
-			this.confirmText(ConfirmMode.Next)
-		  }
+			      this.confirmText(ConfirmMode.Next)
+		      }
         }
       )
+      
       this.FButtonAction = Input.instance.subscribe(
         'BUTTON_DOWN',
         ActionButton.SECONDARY,
@@ -486,7 +488,7 @@ export class DialogWindow {
   // Progresses text
   public confirmText(mode: ConfirmMode): void {
     let currentText = this.NPCScript[this.activeTextId]
-	this.UIOpenTime = +Date.now()
+	  this.UIOpenTime = +Date.now()
 
     // Update active text
     if (mode == ConfirmMode.Next) {

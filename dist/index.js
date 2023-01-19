@@ -901,12 +901,13 @@
                 this.ClickAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, function (e) {
                     if (!_this.isDialogOpen || +Date.now() - _this.UIOpenTime < 100)
                         return;
+                    if (currentText.isQuestion && currentText.isEntryQuestion)
+                        return;
                     if (!DialogTypeInSystem._instance.done) {
                         DialogTypeInSystem._instance.rush();
                         return;
                     }
-                    else if (!_this.isQuestionPanel && !_this.isFixedScreen
-                        && !(currentText.isQuestion && currentText.isEntryQuestion)) {
+                    else if (!_this.isQuestionPanel && !_this.isFixedScreen) {
                         _this.confirmText(ConfirmMode.Next);
                     }
                 });
