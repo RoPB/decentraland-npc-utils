@@ -713,6 +713,7 @@
             });
             // Dialog Text
             this.text = new UIText(this.container);
+            this.text.visible = false;
             this.text.adaptWidth = false;
             this.text.textWrapping = true;
             this.text.width = 460 * UIscaleMultiplier;
@@ -730,6 +731,7 @@
             this.text.isPointerBlocker = false;
             //  Input Text
             this.fillInBox = new UIInputText(this.container);
+            this.fillInBox.visible = false;
             this.fillInBox.textWrapping = true;
             this.fillInBox.width = 460 * UIscaleMultiplier;
             this.fillInBox.height = 40 * UIscaleMultiplier;
@@ -877,7 +879,7 @@
             else {
                 this.image.visible = false;
             }
-            if (currentText.isEntryQuestion) {
+            if (currentText.isQuestion && currentText.isEntryQuestion) {
                 this.fillInBox.fontSize = currentText.fontSize ? currentText.fontSize * UIscaleMultiplier : textSize;
                 this.fillInBox.positionY = currentText.offsetY ? currentText.offsetY * UIscaleMultiplier + textYPos : textYPos;
                 this.fillInBox.positionX = currentText.offsetX ? currentText.offsetX * UIscaleMultiplier : 0;

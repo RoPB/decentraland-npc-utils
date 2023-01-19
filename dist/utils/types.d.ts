@@ -20,14 +20,14 @@
  *
  */
 export declare type Dialog = {
-    text: string;
+    text?: string;
     name?: string;
     fontSize?: number;
     offsetX?: number;
     offsetY?: number;
     typeSpeed?: number;
     isEndOfDialog?: boolean;
-    triggeredByNext?: (string?: any) => void;
+    triggeredByNext?: (text?: string) => void;
     portrait?: ImageData;
     image?: ImageData;
     isQuestion?: boolean;
