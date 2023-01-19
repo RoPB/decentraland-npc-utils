@@ -433,6 +433,7 @@ export class DialogWindow {
     // Global button events
     if (!this.ClickAction) {
       this.ClickAction = Input.instance.subscribe('BUTTON_DOWN', ActionButton.POINTER, false, e => {
+        log("ENTRA AL ClickAction BUTTON_DOWN")
         if (!this.isDialogOpen || +Date.now() - this.UIOpenTime < 100) return
 
         if (!DialogTypeInSystem._instance!.done) {
